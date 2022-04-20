@@ -1,31 +1,33 @@
 import React, { useEffect } from 'react'
 import Header from '../components/Header';
-import { Box, VStack, useToast, Heading } from '@chakra-ui/react'
+import { Box, VStack, useToast, Heading, Flex } from '@chakra-ui/react'
+
 
 function Dashboard() {
 
     const toast = useToast()
     useEffect(() => {
-        
+
         const timeout = setTimeout(() => {
             toast({
                 render: () => (
-                    <Box color='white' p={3} bg='blue.500' borderRadius={5} textAlign='center'>
-                      <Heading fontSize='2xl'>Welcome Back!</Heading>
-                    </Box>
-                  ),
+                    <Flex color='white' bg='teal' borderRadius={10} justifyContent='center' >
+                        <Heading p='10' fontSize='20px'>Welcome Back!</Heading>
+                    </Flex>
+                ),
                 duration: 1000,
-                isClosable: true
+                isClosable: true,
+                position: 'bottom'
             })
-          }, 1000)
-      
-          return () => clearTimeout(timeout)
+        }, 1000)
+
+        return () => clearTimeout(timeout)
     })
 
     return (
         <VStack >
             <Header />
-            <Box bgColor='crimson' w='100vw' h='80vh'>
+            <Box bgColor='transparent' w='100vw' h='80vh' justifyContent='center'>
                 Dashboard
             </Box>
         </VStack>
