@@ -8,10 +8,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.quarkus.hibernate.orm.panache.PanacheEntityBase.delete;
 
@@ -21,11 +18,10 @@ import static io.quarkus.hibernate.orm.panache.PanacheEntityBase.delete;
 @RequiredArgsConstructor
 @Builder
 @Entity
-public class CelsiusEntity {
+public class CelsiusEntity{
 
     @Id
-    @GeneratedValue
-    private long id;
+    private UUID id;
 
     private String filename;
     private String date;

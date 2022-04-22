@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
 
-
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
@@ -28,9 +27,9 @@ public class Database {
 
     @GET
     @Path("{id}")
-    public Response getById(@PathParam("id") Long id) {
+    public Response getById(@PathParam("id") String id) {
         return celsiusRepository
-                .findByIdOptional(id)
+                .findByIdOptional(Long.valueOf(id))
                 .map(celsiusEntity -> Response.ok(celsiusEntity).build())
                 .orElse(Response.status(NOT_FOUND).build());
     }
@@ -80,7 +79,7 @@ public class Database {
     public Response deleteByDate(@PathParam("date") String date) {
         List<CelsiusEntity> d = celsiusRepository.findByDate(date);
         if(d.isEmpty()){
-            return Response.status(NOT_FOUND).build();
+            return Response.status(BAD_REQUEST).build();
         }
         celsiusRepository.deleteByDate(date);
         return Response.noContent().build();
