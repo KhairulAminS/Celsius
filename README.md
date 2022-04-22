@@ -23,9 +23,8 @@ A web application that is able to visualize temperature data, complete with auth
 # Project Reports
 
 ## Current Log
-- I didn't manage to use keycloakify to customize the Keycloak theme.
-- Move on to start building the backend
-- Currently studying about PostgreSQL and REST Api.
+- Studying about Rest Api in Quarkus and React js.
+- Studying about using PostgreSQL database in Quarkus 
 
 ## Last Week's Progress
 - Studying about Keycloak
