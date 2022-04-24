@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
-import Header from '../components/Header';
-import { Box, VStack, useToast, Heading, Flex } from '@chakra-ui/react'
+import Sidebar from '../components/Sidebar';
+import { Box, HStack, useToast, Heading, Flex, ChakraProvider, Slide} from '@chakra-ui/react'
+import { CelsiusTheme } from '../style/theme.js';
 
 
 function Dashboard() {
+
 
     const toast = useToast()
     useEffect(() => {
@@ -24,13 +26,30 @@ function Dashboard() {
         return () => clearTimeout(timeout)
     })
 
+
     return (
-        <VStack >
-            <Header />
-            <Box bgColor='transparent' w='100vw' h='80vh' justifyContent='center'>
-                Dashboard
+        <ChakraProvider theme={CelsiusTheme}>
+            <Box w='100vw' h='100vh'>
+            <HStack spacing='110'>
+                <Slide direction='left' in={true}>
+                    <Sidebar />
+                </Slide>
+                <Flex w='100vw'>
+                    <Box
+                        borderColor='primary'
+                        borderWidth='1px'
+                        h='90vh'
+                        w='99%'
+                        p='25'
+                        justifyContent='center'
+                        mt='5'
+                        borderRadius='20'>
+                        Dashboard
+                    </Box>
+                </Flex>
+            </HStack>
             </Box>
-        </VStack>
+        </ChakraProvider>
     );
 }
 
