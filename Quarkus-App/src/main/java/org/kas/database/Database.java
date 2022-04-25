@@ -1,12 +1,18 @@
 package org.kas.database;
 
+import org.jboss.resteasy.reactive.MultipartForm;
 import org.kas.entity.CelsiusEntity;
+import org.kas.database.CSVToJson.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.DataInput;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.util.List;
 
@@ -48,6 +54,21 @@ public class Database {
     public Response getByFileName(@PathParam("filename") String filename) {
         List<CelsiusEntity> data = celsiusRepository.findByDate(filename);
         return Response.ok(data).build();
+    }
+
+    @POST
+    @Transactional
+    @Path("/upload-file")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response create(@MultipartForm File csvFile) throws FileNotFoundException {
+
+        CelsiusEntity celsiusEntity = CSVToJson.csv2Json(csvFile);
+
+        celsiusRepository.persist(celsiusEntity);
+        if (celsiusRepository.isPersistent(celsiusEntity)) {
+            return Response.created(URI.create("/celsiusEntity/" + celsiusEntity.getId())).build();
+        }
+        return Response.status(NOT_FOUND).build();
     }
 
     @POST

@@ -1,11 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar';
-import { Box, HStack, useToast, Heading, Flex, ChakraProvider, Slide} from '@chakra-ui/react'
+import { Box, HStack, useToast, Heading, Flex, ChakraProvider, Slide } from '@chakra-ui/react'
 import { CelsiusTheme } from '../style/theme.js';
+import { useKeycloak } from "@react-keycloak/web";
+import DashboardContent from '../components/dashboardContent';
 
 
 function Dashboard() {
 
+    const { keycloak } = useKeycloak();
+
+    const [ firstName, setFirstName ] = useState('')
+
+    keycloak.loadUserProfile().then(res => { setFirstName(res.firstName) });
 
     const toast = useToast()
     useEffect(() => {
@@ -13,13 +20,13 @@ function Dashboard() {
         const timeout = setTimeout(() => {
             toast({
                 render: () => (
-                    <Flex color='white' bg='teal' borderRadius={10} justifyContent='center' >
-                        <Heading p='10' fontSize='20px'>Welcome Back!</Heading>
+                    <Flex color='white' bg='#f15a29' borderRadius={10} justifyContent='center' >
+                        <Heading p='10' fontSize='20px'>Welcome Back {firstName} !</Heading>
                     </Flex>
                 ),
                 duration: 1000,
                 isClosable: true,
-                position: 'bottom'
+                position: 'top'
             })
         }, 1000)
 
@@ -30,24 +37,12 @@ function Dashboard() {
     return (
         <ChakraProvider theme={CelsiusTheme}>
             <Box w='100vw' h='100vh'>
-            <HStack spacing='110'>
-                <Slide direction='left' in={true}>
-                    <Sidebar />
-                </Slide>
-                <Flex w='100vw'>
-                    <Box
-                        borderColor='primary'
-                        borderWidth='1px'
-                        h='90vh'
-                        w='99%'
-                        p='25'
-                        justifyContent='center'
-                        mt='5'
-                        borderRadius='20'>
-                        Dashboard
-                    </Box>
-                </Flex>
-            </HStack>
+                <HStack spacing='12vh'>
+                    <Slide direction='left' in={true}>
+                        <Sidebar />
+                    </Slide>
+                    <DashboardContent/>
+                </HStack>
             </Box>
         </ChakraProvider>
     );
