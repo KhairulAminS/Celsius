@@ -33,6 +33,7 @@ public class Database {
 
     @GET
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
         return celsiusRepository
                 .findByIdOptional(Long.valueOf(id))
@@ -63,7 +64,6 @@ public class Database {
     public Response create(@MultipartForm File csvFile) throws FileNotFoundException {
 
         CelsiusEntity celsiusEntity = CSVToJson.csv2Json(csvFile);
-
         celsiusRepository.persist(celsiusEntity);
         if (celsiusRepository.isPersistent(celsiusEntity)) {
             return Response.created(URI.create("/celsiusEntity/" + celsiusEntity.getId())).build();

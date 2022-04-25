@@ -1,12 +1,12 @@
 package org.kas.database;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.kas.entity.CelsiusEntity;
 import org.kas.entity.csvEntity;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -24,11 +24,18 @@ public class CSVToJson {
         ArrayList data = new ArrayList();
 
         for( csvEntity entity : beans ){
-            HashMap<String, String> addData = new HashMap<>();
-            LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(entity.getTimestamp()), ZoneId.systemDefault());
-            addData.put(String.valueOf(date), entity.getTemperature());
-            data.add( addData );
+            if(entity.getTemperature() != null){
+                HashMap<String, String> addData = new HashMap<>();
+                LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(entity.getTimestamp()), ZoneId.systemDefault());
+                addData.put(String.valueOf(date), entity.getTemperature());
+                data.add( addData );
+            }
         }
+
+        Path path = Paths.get(csvFile.getPath());
+        System.out.println(path);
+
+
         CelsiusEntity celsiusEntity = new CelsiusEntity();
         celsiusEntity.setFilename(csvFile.getName());
         celsiusEntity.setId(UUID.fromString(beans.get(6).getId()));
