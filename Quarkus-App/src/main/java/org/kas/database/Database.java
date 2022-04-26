@@ -26,6 +26,7 @@ public class Database {
     @Inject CelsiusRepository celsiusRepository;
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         List<CelsiusEntity> celsiusEntity = celsiusRepository.listAll();
         return Response.ok(celsiusEntity).build();
@@ -62,7 +63,6 @@ public class Database {
     @Path("/upload-file")
     @Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.TEXT_PLAIN})
     public Response create(@MultipartForm File csvFile, @MultipartForm String filename) throws FileNotFoundException {
-        System.out.println("This is the filename : " + filename);
         CelsiusEntity celsiusEntity = CSVToJson.csv2Json(csvFile);
         celsiusRepository.persist(celsiusEntity);
         if (celsiusRepository.isPersistent(celsiusEntity)) {
@@ -95,9 +95,9 @@ public class Database {
     }
 
     @DELETE
-    @Path("date/{date}")
+    @Path("date/{uploadedDate}")
     @Transactional
-    public Response deleteByDate(@PathParam("date") String date) {
+    public Response deleteByDate(@PathParam("uploadedDate") String date) {
         List<CelsiusEntity> d = celsiusRepository.findByDate(date);
         if(d.isEmpty()){
             return Response.status(BAD_REQUEST).build();

@@ -6,12 +6,20 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    Button
+    useToast
 } from '@chakra-ui/react'
+import { useState } from 'react'
 import Dropzone from 'react-dropzone-uploader'
 import 'react-dropzone-uploader/dist/styles.css'
 
 function FileUploader({ onClose, isOpen }) {
+
+    const toast = useToast()
+
+    const {filename, setFilename} = useState('');
+
+    const {dateCreated, setDateCreated} = useState('');
+
     const getUploadParams = ({ meta }) => { return { url: 'http://localhost:8000/database/upload-file' } }
 
     // called every time a file's `status` changes
@@ -21,12 +29,21 @@ function FileUploader({ onClose, isOpen }) {
     const handleSubmit = (files, allFiles) => {
         console.log(files.map(f => f.meta))
         allFiles.forEach(f => f.remove())
-
+        onClose()
+        setTimeout(() => {
+            toast({
+                title: 'File Uploaded',
+                description: "File have been uploaded.",
+                status: 'success',
+                duration: 1000,
+                isClosable: true,
+              })
+        }, 500)
+        
     }
 
     return (
-
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} is isCentered>
             <ModalOverlay />
             <ModalContent p='10'>
                 <ModalCloseButton />

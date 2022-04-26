@@ -1,54 +1,78 @@
-import {AgGridReact} from 'ag-grid-react';
+import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-
-import {useState, useRef, useEffect, useMemo, useCallback} from 'react';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import { Flex, Box, Button } from '@chakra-ui/react';
+import axios from 'axios';
 
 function Table() {
-
-  const [rowData, setRowData] = useState();
 
   const gridRef = useRef();
 
   const [columnDefs, setColumnDefs] = useState([
-    {field: 'make'},
-    {field: 'model'},
-    {field: 'price'}
+    { headerName: 'File Name', field: 'filename'},
+    { headerName: 'Date Created', field: 'uploadedDate'},
   ]);
 
-  const defaultColDef = useMemo( ()=> (
+  const [rowData, setRowData] = useState([]);
+
+  const defaultColDef = useMemo(() => (
     {
-      sortable: true, 
+      sortable: true,
       filter: true
     }
   ));
 
-  const cellClickedListener = useCallback( event => {
+
+  const cellClickedListener = useCallback(event => {
     console.log('cellClicked', event);
   }, []);
 
   useEffect(() => {
-    fetch('https://www.ag-grid.com/example-assets/row-data.json')
-    .then(result => result.json())
-    .then(rowData => setRowData(rowData))
+    axios.get('http://localhost:8000/database')
+      .then(function (response) {
+        console.log(response);
+        setRowData(response.data);
+      })
+  });
+
+  const sizeToFit = useCallback(() => {
+    gridRef.current.api.sizeColumnsToFit();
   }, []);
 
-  const buttonListener = useCallback( e => {
-    gridRef.current.api.deselectAll();
+  const onSelectionChanged = useCallback(() => {
+    var selectedRows = gridRef.current.api.getSelectedRows();
+    var selectedRowsString = '';
+    var maxToShow = 5;
+    selectedRows.forEach(function (selectedRow, index) {
+      if (index >= maxToShow) {
+        return;
+      }
+      if (index > 0) {
+        selectedRowsString += ', ';
+      }
+      selectedRowsString += selectedRow.athlete;
+    });
+    if (selectedRows.length > maxToShow) {
+      var othersCount = selectedRows.length - maxToShow;
+      selectedRowsString +=
+        ' and ' + othersCount + ' other' + (othersCount !== 1 ? 's' : '');
+    }
+    document.querySelector('#selectedRows').innerHTML = selectedRowsString;
   }, []);
 
   return (
-    <div>
-      <button onClick={buttonListener}>Push Me</button>
-      <div className="ag-theme-alpine" style={{width: 500, height: 500}}>
-        <AgGridReact 
-            ref={gridRef}
-            rowData={rowData} columnDefs={columnDefs}
-            animateRows={true} rowSelection='multiple'
-            onCellClicked={cellClickedListener}
-            defaultColDef={defaultColDef}/>
-      </div>
-    </div>
+    <Box className="ag-theme-balham" sx={{ width: '100%', height: '50vh' }}>
+      <AgGridReact
+        ref={gridRef}
+        rowData={rowData} columnDefs={columnDefs}
+        animateRows={true} rowSelection='multiple'
+        onCellClicked={cellClickedListener}
+        onSelectionChanged={onSelectionChanged}
+        defaultColDef={defaultColDef}
+        onFirstDataRendered={sizeToFit}
+      />
+    </Box>
   );
 }
 

@@ -5,8 +5,6 @@ import org.kas.entity.CelsiusEntity;
 import org.kas.entity.csvEntity;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -32,14 +30,20 @@ public class CSVToJson {
             }
         }
 
-        System.out.println(beans.get(1).getId());
-
         CelsiusEntity celsiusEntity = new CelsiusEntity();
-        celsiusEntity.setFilename(csvFile.getName());
+        celsiusEntity.setFilename(getFileName(beans.get(1).getId()));
         celsiusEntity.setId(UUID.fromString(beans.get(6).getId()));
         celsiusEntity.setUploadedDate(String.valueOf(LocalDateTime.now()));
         celsiusEntity.setData(data);
 
+        System.out.println(LocalDateTime.now());
+
         return celsiusEntity;
+    }
+
+
+    private static String getFileName(String beanData){
+        String[] arrOfStr = beanData.split("=\"", 3);
+        return arrOfStr[2];
     }
 }

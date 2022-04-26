@@ -13,7 +13,7 @@ import java.util.List;
 public class CelsiusRepository implements PanacheRepository<CelsiusEntity> {
 
     public List<CelsiusEntity> findByDate(String date) {
-        return list("SELECT entity FROM CelsiusEntity entity WHERE entity.date = ?1 ORDER BY id ASC", date);
+        return list("SELECT entity FROM CelsiusEntity entity WHERE entity.uploadedDate = ?1 ORDER BY id ASC", date);
     }
 
     public List<CelsiusEntity> findByFileName(String filename) {
@@ -25,7 +25,7 @@ public class CelsiusRepository implements PanacheRepository<CelsiusEntity> {
     }
 
     public void deleteByDate(String date) {
-        delete("date", date);
+        delete("uploadedDate", date);
     }
 }
 
