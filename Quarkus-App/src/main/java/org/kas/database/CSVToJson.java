@@ -32,9 +32,7 @@ public class CSVToJson {
             }
         }
 
-        Path path = Paths.get(csvFile.getPath());
-        System.out.println(path);
-
+        System.out.println(beans.get(1).getId());
 
         CelsiusEntity celsiusEntity = new CelsiusEntity();
         celsiusEntity.setFilename(csvFile.getName());

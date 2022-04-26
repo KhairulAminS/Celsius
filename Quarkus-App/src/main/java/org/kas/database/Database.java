@@ -60,9 +60,9 @@ public class Database {
     @POST
     @Transactional
     @Path("/upload-file")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response create(@MultipartForm File csvFile) throws FileNotFoundException {
-
+    @Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.TEXT_PLAIN})
+    public Response create(@MultipartForm File csvFile, @MultipartForm String filename) throws FileNotFoundException {
+        System.out.println("This is the filename : " + filename);
         CelsiusEntity celsiusEntity = CSVToJson.csv2Json(csvFile);
         celsiusRepository.persist(celsiusEntity);
         if (celsiusRepository.isPersistent(celsiusEntity)) {
@@ -103,6 +103,13 @@ public class Database {
             return Response.status(BAD_REQUEST).build();
         }
         celsiusRepository.deleteByDate(date);
+        return Response.noContent().build();
+    }
+
+    @DELETE
+    @Transactional
+    public Response deleteAll() {
+        celsiusRepository.deleteAll();
         return Response.noContent().build();
     }
 }

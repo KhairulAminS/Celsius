@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Flex, useDisclosure } from '@chakra-ui/react'
 import FileUploader from './FileUploader';
-import CreateTable from './Table';
+import Table from './Table';
+
 
 function DashboardContent() {
 
@@ -19,12 +20,14 @@ function DashboardContent() {
                 mt='8vh'
                 borderRadius='20'>
                 <Button color='primary'
-                alignSelf='center'
+                    alignSelf='center'
                     onClick={onOpen}>
                     Upload
                 </Button>
                 <FileUploader isOpen={isOpen} onClose={onClose} />
-                <CreateTable/>
+                <Box p={5}>
+                    <Table />
+                </Box>
             </Box>
         </Flex>
     );
