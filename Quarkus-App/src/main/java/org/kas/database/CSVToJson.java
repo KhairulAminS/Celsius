@@ -31,9 +31,9 @@ public class CSVToJson {
         }
 
         CelsiusEntity celsiusEntity = new CelsiusEntity();
-        celsiusEntity.setFilename(getFileName(beans.get(1).getId()));
-        celsiusEntity.setId(UUID.fromString(beans.get(6).getId()));
-        celsiusEntity.setUploadedDate(String.valueOf(LocalDateTime.now()));
+        celsiusEntity.setFilename(getFileName(beans.get(1).getUuid()));
+        celsiusEntity.setUuid(beans.get(6).getUuid());
+        celsiusEntity.setUploadedDate(convertToDate(LocalDateTime.now()));
         celsiusEntity.setData(data);
 
         System.out.println(LocalDateTime.now());
@@ -45,5 +45,9 @@ public class CSVToJson {
     private static String getFileName(String beanData){
         String[] arrOfStr = beanData.split("=\"", 3);
         return arrOfStr[2];
+    }
+
+    private static String convertToDate(LocalDateTime dateToConvert) {
+        return Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant()).toString();
     }
 }

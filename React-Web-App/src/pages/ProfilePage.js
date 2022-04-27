@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Flex, useDisclosure, useToast, ScaleFade } from '@chakra-ui/react'
-import FileUploader from './FileUploader';
-import Table from './Table';
+import FileUploader from '../components/FileUploader';
+import Table from '../components/Table';
 import axios from 'axios';
 
-
-function DashboardContent() {
-
+function ProfilePage() {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const toast = useToast()
@@ -66,27 +64,15 @@ function DashboardContent() {
                 mt='8vh'
                 borderRadius='20'>
                 <ScaleFade initialScale={0.9} in={true}>
-                    <Button color='primary'
-                        alignSelf='center'
-                        onClick={onOpen}>
-                        Upload
-                    </Button>
-                    <FileUploader
-                        isOpen={isOpen}
-                        onClose={onClose}
-                        getUploadParams={getUploadParams}
-                        handleChangeStatus={handleChangeStatus}
-                        handleSubmit={handleSubmit} />
-                    <Box p={5}>
-                        <Table
-                            rowData={rowData}
-                            columnDefs={columnDefs} />
-                    </Box>
+                    This is the profile
                 </ScaleFade>
+
             </Box>
+
         </Flex>
+
+
     );
 }
 
-
-export default DashboardContent;
+export default ProfilePage;

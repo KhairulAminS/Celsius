@@ -4,6 +4,8 @@ import { Box, HStack, useToast, Heading, Flex, ChakraProvider, Slide } from '@ch
 import { CelsiusTheme } from '../style/theme.js';
 import { useKeycloak } from "@react-keycloak/web";
 import DashboardContent from '../components/dashboardContent';
+import { Outlet } from 'react-router-dom';
+
 
 
 function Dashboard() {
@@ -41,7 +43,7 @@ function Dashboard() {
                     <Slide direction='left' in={true}>
                         <Sidebar />
                     </Slide>
-                    <DashboardContent/>
+                    <Outlet/>
                 </HStack>
             </Box>
         </ChakraProvider>

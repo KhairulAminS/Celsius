@@ -3,38 +3,28 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Flex, Box, Button } from '@chakra-ui/react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function Table() {
+function Table({rowData, columnDefs}) {
+
+  let navigateTo = useNavigate();
 
   const gridRef = useRef();
-
-  const [columnDefs, setColumnDefs] = useState([
-    { headerName: 'File Name', field: 'filename'},
-    { headerName: 'Date Created', field: 'uploadedDate'},
-  ]);
-
-  const [rowData, setRowData] = useState([]);
 
   const defaultColDef = useMemo(() => (
     {
       sortable: true,
-      filter: true
+      filter: true,
+      suppressCellSelection: true,
+      suppressNavigable: true,
     }
   ));
 
 
-  const cellClickedListener = useCallback(event => {
-    console.log('cellClicked', event);
+  const cellDoubleClickedListener = useCallback(event => {
+    navigateTo('/');
   }, []);
 
-  useEffect(() => {
-    axios.get('http://localhost:8000/database')
-      .then(function (response) {
-        console.log(response);
-        setRowData(response.data);
-      })
-  });
 
   const sizeToFit = useCallback(() => {
     gridRef.current.api.sizeColumnsToFit();
@@ -66,9 +56,9 @@ function Table() {
       <AgGridReact
         ref={gridRef}
         rowData={rowData} columnDefs={columnDefs}
-        animateRows={true} rowSelection='multiple'
-        onCellClicked={cellClickedListener}
-        onSelectionChanged={onSelectionChanged}
+        animateRows={true} 
+        onCellDoubleClicked={cellDoubleClickedListener}
+        // onSelectionChanged={onSelectionChanged}
         defaultColDef={defaultColDef}
         onFirstDataRendered={sizeToFit}
       />

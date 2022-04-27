@@ -61,8 +61,8 @@ public class Database {
     @POST
     @Transactional
     @Path("/upload-file")
-    @Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.TEXT_PLAIN})
-    public Response create(@MultipartForm File csvFile, @MultipartForm String filename) throws FileNotFoundException {
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response create(@MultipartForm File csvFile) throws FileNotFoundException {
         CelsiusEntity celsiusEntity = CSVToJson.csv2Json(csvFile);
         celsiusRepository.persist(celsiusEntity);
         if (celsiusRepository.isPersistent(celsiusEntity)) {

@@ -18,7 +18,10 @@ import java.util.*;
 public class CelsiusEntity{
 
     @Id
-    private UUID id;
+    @GeneratedValue
+    private long id;
+
+    private String uuid;
 
     private String filename;
     private String uploadedDate;

@@ -20,7 +20,7 @@ public class csvEntity {
 
     @Id
     @CsvBindByPosition(position = 0)
-    private String id;
+    private String uuid;
 
     @CsvBindByPosition(position = 2)
     private long timestamp;

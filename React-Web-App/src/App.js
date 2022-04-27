@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import WelcomePage from "./pages/Homepage";
 import SecuredPage from "./pages/Securedpage";
 import PrivateRoute from "./pages/PrivateRoute";
+import ProfilePage from "./pages/ProfilePage";
+import DashboardContent from "./components/dashboardContent";
 
 function App() {
 
@@ -22,7 +24,10 @@ function App() {
                  <SecuredPage />
                </PrivateRoute>
              }
-           />
+           >
+             <Route path="profile" element={<ProfilePage/>}/>
+             <Route path="file-manager" element={<DashboardContent/>}/>
+           </Route>
          </Routes>
        </BrowserRouter>
      </ReactKeycloakProvider>
