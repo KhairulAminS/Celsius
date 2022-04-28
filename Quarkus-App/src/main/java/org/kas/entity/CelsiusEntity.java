@@ -20,7 +20,7 @@ public class CelsiusEntity{
     @Id
     @GeneratedValue
     private long id;
-    
+
     private String uuid;
 
     private String filename;

@@ -6,7 +6,8 @@ import WelcomePage from "./pages/Homepage";
 import SecuredPage from "./pages/Securedpage";
 import PrivateRoute from "./pages/PrivateRoute";
 import ProfilePage from "./pages/ProfilePage";
-import DashboardContent from "./components/dashboardContent";
+import FileManager from "./pages/FileManager";
+import MainPage from "./pages/MainPage";
 
 function App() {
 
@@ -25,8 +26,9 @@ function App() {
                </PrivateRoute>
              }
            >
+             <Route path="main" element={<MainPage/>}/>
              <Route path="profile" element={<ProfilePage/>}/>
-             <Route path="file-manager" element={<DashboardContent/>}/>
+             <Route path="file-manager" element={<FileManager/>}/>
            </Route>
          </Routes>
        </BrowserRouter>

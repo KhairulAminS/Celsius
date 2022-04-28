@@ -29,7 +29,7 @@ function Header() {
                     <Button
                         bgColor='transparent'
                         onClick={() => {
-                            keycloak.login(navigate("/secured"))
+                            keycloak.login(navigate("/secured/main"))
                         }}
                     >
                         {!keycloak.authenticated ? 'Login' : 'To Dashboard'}

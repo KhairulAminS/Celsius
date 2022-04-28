@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 import { Box, HStack, useToast, Heading, Flex, ChakraProvider, Slide } from '@chakra-ui/react'
 import { CelsiusTheme } from '../style/theme.js';
 import { useKeycloak } from "@react-keycloak/web";
-import DashboardContent from '../components/dashboardContent';
+import DashboardContent from './FileManager';
 import { Outlet } from 'react-router-dom';
 
 

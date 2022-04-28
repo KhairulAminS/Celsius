@@ -25,16 +25,15 @@ import { CelsiusTheme } from '../style/theme.js';
 function Sidebar() {
     const { keycloak } = useKeycloak();
     let navigateTo = useNavigate();
-    const [isActive, setActive] = useState(false)
-    const handleClick = () => {
-        console.log(isActive)
-    }
 
     return (
         <ChakraProvider theme={CelsiusTheme}>
             <Flex alignItems='flex-start' p='5' h='100vh'>
                 <VStack spacing='50' mt='5' h='95%'>
-                    <Image src={logo} htmlWidth='50vw' ml='-4' />
+                    <Box as='button' onClick={() => navigateTo("/secured/main")}>
+                        <Image src={logo} htmlWidth='60vw' ml='-2'  />
+                    </Box>
+
                     <Tooltip hasArrow label="Profile" placement='right' bg='secondary' fontSize='20'>
                         <Image
                             src={picture}
@@ -51,7 +50,6 @@ function Sidebar() {
                             }}
                             onClick={() => {
                                 navigateTo("/secured/profile")
-                                setActive(!isActive)
                             }}
                         />
                     </Tooltip>
@@ -63,7 +61,6 @@ function Sidebar() {
                             variant='primary'
                             onClick={() => {
                                 navigateTo("/secured/file-manager")
-                                setActive(!isActive)
                             }}
                         />
                     </Tooltip>
