@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import { motion } from 'framer-motion'
 import logo from '../asset/SamplePicture.png';
 
+
 function Home() {
 
   const { keycloak } = useKeycloak();
@@ -15,7 +16,7 @@ function Home() {
     <Flex>
       <VStack alignItems='center'>
         <Header />
-        <Box >
+        <Box>
           <HStack p='50' spacing='100'>
             <motion.div initial='hidden' animate='visible' variants={animVariant}>
               <VStack spacing='50' alignItems='start' >

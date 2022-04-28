@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar';
-import { Box, HStack, useToast, Heading, Flex, ChakraProvider, Slide } from '@chakra-ui/react'
+import { Box, HStack, useToast, Heading, Flex, ChakraProvider, Slide, Image } from '@chakra-ui/react'
 import { CelsiusTheme } from '../style/theme.js';
 import { useKeycloak } from "@react-keycloak/web";
 import DashboardContent from './FileManager';
 import { Outlet } from 'react-router-dom';
+import picture from '../asset/sample-profile-pic.png';
 
 
 
@@ -12,7 +13,7 @@ function Dashboard() {
 
     const { keycloak } = useKeycloak();
 
-    const [ firstName, setFirstName ] = useState('')
+    const [firstName, setFirstName] = useState('')
 
     keycloak.loadUserProfile().then(res => { setFirstName(res.firstName) });
 
@@ -33,7 +34,7 @@ function Dashboard() {
         }, 1000)
 
         return () => clearTimeout(timeout)
-    })
+    }, [])
 
 
     return (
@@ -43,7 +44,7 @@ function Dashboard() {
                     <Slide direction='left' in={true}>
                         <Sidebar />
                     </Slide>
-                    <Outlet/>
+                    <Outlet />
                 </HStack>
             </Box>
         </ChakraProvider>

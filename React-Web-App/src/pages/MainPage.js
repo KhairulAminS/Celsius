@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Flex, useDisclosure, useToast, ScaleFade } from '@chakra-ui/react'
+import { Box, Image, Flex, Heading, ScaleFade, VStack } from '@chakra-ui/react'
+import SimpleTable from '../components/SimpleTable.js';
+
 
 function MainPage() {
 
     return (
         <Flex w='100vw'>
             <Box
-            h='90vh'
-            w='99%'
-            p='25'
-            justifyContent='center'
-            mt='8vh'
-            borderRadius='20'>
+                h='90vh'
+                w='99%'
+                p='25'
+                justifyContent='center'
+                mt='8vh'
+                borderRadius='20'>
                 <ScaleFade initialScale={0.9} in={true}>
                     <Box>
-                        This is main page
+                        <VStack spacing='5vh'>
+                            <Heading alignSelf='start' >
+                                Recently Added
+                            </Heading>
+                            <Box w='100%'>
+                                <SimpleTable />
+                            </Box>
+                            <Heading alignSelf='start'>
+                                Recently Viewed
+                            </Heading>
+                        </VStack>
                     </Box>
                 </ScaleFade>
             </Box>
