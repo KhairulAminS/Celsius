@@ -132,7 +132,7 @@ A web application that is able to visualize temperature data, complete with auth
      ```sh
      ./mvnw compile quarkus:dev
      ```
-     **_NOTE:_**  Quarkus now ships with a Dev UI,  which is available in dev mode only at  [http://localhost:8080/q/dev/](http://localhost:8080/q/dev/)
+     **_NOTE:_**  Quarkus now ships with a Dev UI,  which is available in dev mode only at  [http://localhost:8080/q/dev/](http://localhost:8000/q/dev/)
 
 5. Launch web application
    1. Open `React-Web-App` folder in your code editor of choice and install all packages by running the following command in the terminal:
