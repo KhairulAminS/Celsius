@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar';
-import { Box, HStack, useToast, Heading, Flex, ChakraProvider, Slide, Image } from '@chakra-ui/react'
+import { Box, HStack, useToast, Heading, Flex, ChakraProvider } from '@chakra-ui/react'
 import { CelsiusTheme } from '../style/theme.js';
 import { useKeycloak } from "@react-keycloak/web";
-import DashboardContent from './FileManager';
 import { Outlet } from 'react-router-dom';
-import picture from '../asset/sample-profile-pic.png';
-
 
 
 function Dashboard() {
@@ -40,10 +37,8 @@ function Dashboard() {
     return (
         <ChakraProvider theme={CelsiusTheme}>
             <Box w='100vw' h='100vh'>
-                <HStack spacing='12vh'>
-                    <Slide direction='left' in={true}>
-                        <Sidebar />
-                    </Slide>
+                <HStack spacing='1vh'>
+                    <Sidebar />
                     <Outlet />
                 </HStack>
             </Box>

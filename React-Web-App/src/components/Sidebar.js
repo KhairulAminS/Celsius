@@ -31,27 +31,25 @@ function Sidebar() {
             <Flex alignItems='flex-start' p='5' h='100vh'>
                 <VStack spacing='50' mt='5' h='95%'>
                     <Box as='button' onClick={() => navigateTo("/secured/main")}>
-                        <Image src={logo} htmlWidth='60vw' ml='-2'  />
+                        <Image src={logo} htmlWidth='60vw' ml='-2' />
                     </Box>
-
                     <Tooltip hasArrow label="Profile" placement='right' bg='secondary' fontSize='20'>
-                        <Image
-                            src={picture}
-                            boxSize='7vh'
-                            borderRadius='50%'
-                            sx={{
-                                transition: 'all 0.2s ease-out',
-                                _hover: {
-                                    borderRadius: '10%'
-                                },
-                                // _active: {
-                                //     borderRadius: '10%'
-                                // }
-                            }}
-                            onClick={() => {
-                                navigateTo("/secured/profile")
-                            }}
-                        />
+                        <Box as='button'>
+                            <Image
+                                src={picture}
+                                boxSize='7vh'
+                                borderRadius='50%'
+                                sx={{
+                                    transition: 'all 0.2s ease-out',
+                                    _hover: {
+                                        borderRadius: '10%'
+                                    },
+                                }}
+                                onClick={() => {
+                                    navigateTo("/secured/profile")
+                                }}
+                            />
+                        </Box>
                     </Tooltip>
                     <Tooltip hasArrow label="File Manager" placement='right' bg='secondary' fontSize='20'>
                         <IconButton

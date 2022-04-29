@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Table,
     Thead,
@@ -7,42 +7,68 @@ import {
     Th,
     Td,
     TableContainer,
-    Text,
-    Box
+    Link,
+    IconButton
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
+import TableMenu from './TableMenu';
 
-function SimpleTable() {
+function SimpleTable({ rowData, isAdded }) {
+
     let navigateTo = useNavigate();
+
+    const history = [];
+
+    const minLimitRow = rowData.length < 5 ? rowData.length : 0;
+    const minLimitHistory = history.length< 5 ? history.length : 0;
+
     return (
-        
         <TableContainer>
             <Table size='sm'>
                 <Thead>
                     <Tr>
-                        <Th>To convert</Th>
-                        <Th>into</Th>
-                        <Th isNumeric>multiply by</Th>
+                        <Th >Filename</Th>
+                        <Th >Created at</Th>
+                        <Th></Th>
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <Tr>
-                        <Td>
-
-                        </Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                    </Tr>
-                    <Tr>
-                        <Td>feet</Td>
-                        <Td>centimetres (cm)</Td>
-                        <Td isNumeric>30.48</Td>
-                    </Tr>
-                    <Tr>
-                        <Td>yards</Td>
-                        <Td>metres (m)</Td>
-                        <Td isNumeric>0.91444</Td>
-                    </Tr>
+                    {isAdded ? rowData.slice(minLimitRow - 5, rowData.length).reverse().map((data) => (
+                        <Tr>
+                            <Td>
+                                <Link
+                                    color='secondary'
+                                    onClick={() => {
+                                        history.push(data)
+                                        navigateTo('/secured/analysis/' + data.id)
+                                        console.log(history)
+                                    }}>
+                                    {data.filename}
+                                </Link>
+                            </Td>
+                            <Td >{data.uploadedDate}</Td>
+                            <Td>
+                                <TableMenu />
+                            </Td>
+                        </Tr>
+                    )) : history.slice(minLimitHistory - 5, history.length).map((data) => (
+                        <Tr>
+                            <Td>
+                                <Link
+                                    color='secondary'
+                                    onClick={() => {
+                                        history.push(data)
+                                        navigateTo('/secured/profile')
+                                    }}>
+                                    {data.filename}
+                                </Link>
+                            </Td>
+                            <Td >{data.uploadedDate}</Td>
+                            <Td>
+                                <TableMenu />
+                            </Td>
+                        </Tr>
+                    ))}
                 </Tbody>
             </Table>
         </TableContainer>

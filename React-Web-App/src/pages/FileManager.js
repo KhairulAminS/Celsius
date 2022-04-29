@@ -18,11 +18,6 @@ function FileManager() {
 
     const [rowData, setRowData] = useState([]);
 
-    const getUploadParams = ({ meta }) => { return { url: 'http://localhost:8000/database/upload-file' } }
-
-    // called every time a file's `status` changes
-    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
-
     // receives array of files that are done uploading when submit button is clicked
     const handleSubmit = (files, allFiles) => {
         console.log(files.map(f => f.meta))
@@ -81,8 +76,6 @@ function FileManager() {
                             <FileUploader
                                 isOpen={isOpen}
                                 onClose={onClose}
-                                getUploadParams={getUploadParams}
-                                handleChangeStatus={handleChangeStatus}
                                 handleSubmit={handleSubmit} />
                             <Box p={5}>
                                 <Table

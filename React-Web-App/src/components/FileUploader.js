@@ -8,7 +8,12 @@ import {
 import Dropzone from 'react-dropzone-uploader'
 import 'react-dropzone-uploader/dist/styles.css'
 
-function FileUploader({ onClose, isOpen, getUploadParams, handleChangeStatus, handleSubmit }) {
+function FileUploader({ onClose, isOpen, handleSubmit }) {
+
+    const getUploadParams = ({ meta }) => { return { url: 'http://localhost:8000/database/upload-file' } }
+
+    // called every time a file's `status` changes
+    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
 
 
     return (

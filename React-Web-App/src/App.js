@@ -8,6 +8,7 @@ import PrivateRoute from "./pages/PrivateRoute";
 import ProfilePage from "./pages/ProfilePage";
 import FileManager from "./pages/FileManager";
 import MainPage from "./pages/MainPage";
+import AnalysisPage from "./pages/AnalysisPage";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
              <Route path="main" element={<MainPage/>}/>
              <Route path="profile" element={<ProfilePage/>}/>
              <Route path="file-manager" element={<FileManager/>}/>
+             <Route path="analysis/:id" element={<AnalysisPage/>}/>
            </Route>
          </Routes>
        </BrowserRouter>
