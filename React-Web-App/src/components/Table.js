@@ -5,7 +5,7 @@ import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Flex, Box, Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
-function Table({rowData, columnDefs}) {
+function Table({ rowData, columnDefs }) {
 
   let navigateTo = useNavigate();
 
@@ -19,12 +19,6 @@ function Table({rowData, columnDefs}) {
       suppressNavigable: true,
     }
   ));
-
-
-  const cellDoubleClickedListener = useCallback(event => {
-    navigateTo('/');
-  }, []);
-
 
   const sizeToFit = useCallback(() => {
     gridRef.current.api.sizeColumnsToFit();
@@ -52,15 +46,19 @@ function Table({rowData, columnDefs}) {
   }, []);
 
   return (
-    <Box className="ag-theme-balham" sx={{ width: '100%', height: '50vh' }}>
+    <Box className="ag-theme-balham" sx={{ width: '100%', height: '70vh', fontSize: '15' }}>
       <AgGridReact
         ref={gridRef}
         rowData={rowData} columnDefs={columnDefs}
-        animateRows={true} 
-        onCellDoubleClicked={cellDoubleClickedListener}
-        // onSelectionChanged={onSelectionChanged}
+        animateRows={true}
+        onSelectionChanged={onSelectionChanged}
         defaultColDef={defaultColDef}
         onFirstDataRendered={sizeToFit}
+        rowHeight='50'
+        rowSelection={'multiple'}
+        groupSelectsChildren={true}
+        suppressRowClickSelection={true}
+        suppressAggFuncInHeader={true}
       />
     </Box>
   );

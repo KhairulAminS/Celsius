@@ -25,7 +25,8 @@ public class CSVToJson {
             if(entity.getTemperature() != null){
                 HashMap<String, String> addData = new HashMap<>();
                 LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(entity.getTimestamp()), ZoneId.systemDefault());
-                addData.put(String.valueOf(date), entity.getTemperature());
+                addData.put("Timestamp", String.valueOf(date));
+                addData.put("Temperature", entity.getTemperature());
                 data.add( addData );
             }
         }
@@ -35,8 +36,6 @@ public class CSVToJson {
         celsiusEntity.setUuid(beans.get(6).getUuid());
         celsiusEntity.setUploadedDate(convertToDate(LocalDateTime.now()));
         celsiusEntity.setData(data);
-
-        System.out.println(LocalDateTime.now());
 
         return celsiusEntity;
     }

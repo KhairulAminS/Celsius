@@ -7,7 +7,7 @@ import {
     useColorModeValue
 } from '@chakra-ui/react'
 
-import { RiAddFill } from 'react-icons/ri'
+import { MdDeleteForever } from 'react-icons/md'
 import { HiMenu } from 'react-icons/hi'
 
 
@@ -28,8 +28,8 @@ const color = useColorModeValue('light', 'dark')
                 bgColor={bgColor} color={color}
             />
             <MenuList>
-                <MenuItem icon={<RiAddFill />} bgColor={bgColor} color={color}>
-                    New Tab
+                <MenuItem icon={<MdDeleteForever />} bgColor={bgColor} color={color}>
+                    Delete
                 </MenuItem>
             </MenuList>
         </Menu>

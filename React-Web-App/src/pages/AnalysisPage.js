@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 function AnalysisPage() {
 
-    let { id } = useParams();
+    let { filename } = useParams();
 
     return (
         <Flex w='100vw'>
@@ -25,7 +25,7 @@ function AnalysisPage() {
                     alignItems='end'>
                     <ScaleFade initialScale={0.9} in={true}>
                         <Flex flexDir='column'>
-                            This is analysis page for { id }
+                            This is analysis page for { filename }
                         </Flex>
                     </ScaleFade>
                 </Box>

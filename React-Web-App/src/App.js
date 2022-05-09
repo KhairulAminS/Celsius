@@ -30,7 +30,7 @@ function App() {
              <Route path="main" element={<MainPage/>}/>
              <Route path="profile" element={<ProfilePage/>}/>
              <Route path="file-manager" element={<FileManager/>}/>
-             <Route path="analysis/:id" element={<AnalysisPage/>}/>
+             <Route path="analysis/:filename" element={<AnalysisPage/>}/>
            </Route>
          </Routes>
        </BrowserRouter>

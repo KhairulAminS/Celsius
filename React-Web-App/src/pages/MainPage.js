@@ -9,7 +9,7 @@ function MainPage() {
     const [rowData, setRowData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/database')
+        axios.get('http://localhost:8000/database/metadata')
             .then(function (response) {
                 console.log(response.data)
                 setRowData(response.data);
@@ -31,14 +31,17 @@ function MainPage() {
                             <Heading >
                                 Recently Added
                             </Heading>
-                            <Box w='100%'>
-                                <SimpleTable rowData={rowData} isAdded={true}/>
+                            <Box w='100%' >
+                                {rowData.length !== 0 ? <SimpleTable rowData={rowData} isAdded={true} />
+                                    : <Box fontSize='3vh' textAlign='center'>
+                                        Loading
+                                    </Box>
+                                }
                             </Box>
                             <Heading >
                                 Recently Viewed
                             </Heading>
                             <Box w='100%'>
-                                <SimpleTable rowData={rowData} isAdded={false}/>
                             </Box>
                         </VStack>
                     </Box>

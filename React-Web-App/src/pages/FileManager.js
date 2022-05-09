@@ -3,6 +3,7 @@ import { Box, Button, Flex, useDisclosure, useToast, ScaleFade, Heading, VStack 
 import FileUploader from '../components/FileUploader';
 import Table from '../components/Table';
 import axios from 'axios';
+import cellRenderer from '../components/cellRenderer';
 
 
 function FileManager() {
@@ -12,8 +13,10 @@ function FileManager() {
     const toast = useToast()
 
     const [columnDefs, setColumnDefs] = useState([
-        { headerName: 'File Name', field: 'filename' },
+        { field: '', checkboxSelection: true, width:'15', sortable: false, filter: false, },
+        { headerName: 'File Name', field: 'filename'},
         { headerName: 'Date Created', field: 'uploadedDate' },
+        { headerName: 'Actions', cellRenderer: cellRenderer }
     ]);
 
     const [rowData, setRowData] = useState([]);
@@ -48,6 +51,8 @@ function FileManager() {
                 setRowData(response.data);
             })
     }, []);
+
+    
 
     return (
         <Flex w='100vw'>

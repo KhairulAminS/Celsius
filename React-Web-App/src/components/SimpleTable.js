@@ -8,7 +8,7 @@ import {
     Td,
     TableContainer,
     Link,
-    IconButton
+    Box
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 import TableMenu from './TableMenu';
@@ -19,8 +19,7 @@ function SimpleTable({ rowData, isAdded }) {
 
     const history = [];
 
-    const minLimitRow = rowData.length < 5 ? rowData.length : 0;
-    const minLimitHistory = history.length< 5 ? history.length : 0;
+    const minLimitRow = rowData.length < 5 ? 0 : rowData.length - 5;
 
     return (
         <TableContainer>
@@ -33,32 +32,15 @@ function SimpleTable({ rowData, isAdded }) {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {isAdded ? rowData.slice(minLimitRow - 5, rowData.length).reverse().map((data) => (
+                    {rowData.length !== 0 && rowData.slice(minLimitRow, rowData.length + 1).reverse().map((data) => (
                         <Tr>
                             <Td>
                                 <Link
                                     color='secondary'
                                     onClick={() => {
                                         history.push(data)
-                                        navigateTo('/secured/analysis/' + data.id)
+                                        navigateTo('/secured/analysis/' + data.filename)
                                         console.log(history)
-                                    }}>
-                                    {data.filename}
-                                </Link>
-                            </Td>
-                            <Td >{data.uploadedDate}</Td>
-                            <Td>
-                                <TableMenu />
-                            </Td>
-                        </Tr>
-                    )) : history.slice(minLimitHistory - 5, history.length).map((data) => (
-                        <Tr>
-                            <Td>
-                                <Link
-                                    color='secondary'
-                                    onClick={() => {
-                                        history.push(data)
-                                        navigateTo('/secured/profile')
                                     }}>
                                     {data.filename}
                                 </Link>
