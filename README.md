@@ -172,7 +172,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Khairul Amin Shabudin - mohamad.khairul@skymind.my
+Khairul Amin Shabudin - khairulaminshabudin@gmail.com
 
 Project Link: [Celsius](https://github.com/KhairulAminShabudin/Celsius)
 
